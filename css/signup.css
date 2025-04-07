@@ -1,0 +1,160 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Page Layout */
+.signup-container {
+    display: flex;
+    height: 100vh;
+    background: #0d0d0d; /* Dark background */
+}
+
+/* Left Section - Form */
+.signup-form {
+    width: 50%;
+    background: #1a1a1a;
+    color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: orange;
+    margin-bottom: 20px;
+}
+
+.signup-form h2 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.signup-form p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+/* Input Fields */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: orange;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid orange;
+    background: black;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Password Visibility Toggle */
+.password-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: orange;
+}
+
+/* Signup Button */
+.signup-btn {
+    width: 100%;
+    padding: 12px;
+    background: orange;
+    color: black;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.signup-btn:hover {
+    background: #ff9800;
+}
+
+/* Sign In Text */
+.signin-text {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.signin-text a {
+    color: orange;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signin-text a:hover {
+    text-decoration: underline;
+}
+
+/* Right Section - Promo */
+.promo-section {
+    width: 50%;
+    background: linear-gradient(to right, #220000, #0d0d0d);
+    color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.promo-section h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.promo-section p {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+/* Download Buttons */
+.download-buttons img {
+    width: 140px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .signup-container {
+        flex-direction: column;
+    }
+    .signup-form, .promo-section {
+        width: 100%;
+        padding: 30px;
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Music Copyright Platform</title>
+    <link rel="stylesheet" href="/css/signup.css">
+    
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Sign Up</h1>
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="artist-name">Artist/Band Name (Optional)</label>
+                <input type="text" id="artist-name" name="artist-name">
+            </div>
+            <div class="input-group">
+                <label for="role">Role in the Music Industry</label>
+                <select id="role" name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="Artist">Artist</option>
+                    <option value="Songwriter">Songwriter</option>
+                    <option value="Producer">Producer</option>
+                    <option value="Publisher">Publisher</option>
+                    <option value="Label">Label</option>
+                </select>
+            </div>
+            <button type="submit" class="btn primary">Create Account</button>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+    </div>
+</body>
+</html>

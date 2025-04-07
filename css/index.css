@@ -1,0 +1,271 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    color: black;
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fcf6f5;
+    color: black;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 250px;
+    background-color: #0d0d0d;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    color: orange;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: orange;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: orange;
+    color: black;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+    color: black;
+}
+
+/* Banner Section */
+.banner {
+    width: 100%;
+    background: url('../images/banner-bg.jpg') no-repeat center center/cover;
+    padding: 80px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-content {
+    text-align: center;
+    background: rgba(153, 0, 17, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    max-width: 80%;
+    box-shadow: 0 0 15px rgba(153, 0, 17, 0.5);
+}
+
+.banner-content h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    background: orange;
+    color: black;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    border: 2px solid black;
+}
+
+.cta-btn:hover {
+    background: black;
+    color: orange;
+    border: 2px solid orange;
+}
+
+/* Music Section */
+.music-section {
+    margin-top: 40px;
+}
+
+.music-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: black;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.music-card {
+    background: #bbbbbb;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    color: black;
+}
+
+.music-card:hover {
+    transform: scale(1.05);
+}
+
+.music-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.music-card h4 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: black;
+}
+
+.music-card p {
+    font-size: 14px;
+    color: black;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 15px;
+    background: #bbbbbb;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    color: black;
+}
+
+/* Login Popup Styling */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Popup Content */
+.popup-content {
+    background: black;
+    padding: 20px;
+    width: 350px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0px 0px 10px orange;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close Button */
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: orange;
+}
+
+.close-btn:hover {
+    color: #ff9800;
+}
+
+/* Input Fields */
+.input-group {
+    margin: 15px 0;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: orange;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid orange;
+    background: black;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: orange;
+    color: black;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #ff9800;
+}
+
+/* Signup Text */
+.signup-text {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.signup-text a {
+    color: orange;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
