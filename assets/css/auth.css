@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: url('../media/images/music-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.auth-container {
+  background: rgba(30, 30, 30, 0.9);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  border-radius: 20px;
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+  z-index: 1;
+  color: #fff;
+}
+
+.form-header .icon-box {
+  margin: 0 auto 15px;
+  width: 50px;
+  height: 50px;
+  background: #f9a825;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.form-header h2 {
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.form-header p {
+  color: #bbb;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+form input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  margin-bottom: 15px;
+  background-color: #2c2c2c;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #f9a825;
+  box-shadow: 0 0 8px rgba(249,168,37,0.2);
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f9a825;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #e09100;
+}
+
+.forgot-password {
+  float: right;
+  font-size: 12px;
+  cursor: pointer;
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.divider {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #777;
+  position: relative;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  height: 1px;
+  background-color: #444;
+  width: 40%;
+  position: absolute;
+  top: 50%;
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.social-login button {
+  border: none;
+  background: #444;
+  margin: 0 5px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Styles for input-group components */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 8px;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background-color: #2c2c2c;
+    color: #fff;
+    transition: all 0.3s ease;
+    appearance: none;
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    outline: none;
+    border-color: #f9a825;
+    box-shadow: 0 0 8px rgba(249,168,37,0.2);
+  }
+  
+  /* Custom select arrow styling */
+  .input-group select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"white\"><polygon points=\"0,0 20,0 10,10\"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 10px;
+    cursor: pointer;
+  }
+  
+  /* Remove default select styling in some browsers */
+  .input-group select::-ms-expand {
+    display: none;
+  }
+  
+
+.switch-form {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.switch-form span {
+  color: #f9a825;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+@media(max-width: 450px) {
+  .auth-container {
+    width: 90%;
+    padding: 30px;
+  }
+}
+/*         } */
