@@ -193,10 +193,6 @@ form button:hover {
   font-weight: bold;
 }
 
-.hidden {
-  display: none;
-}
-
 @media(max-width: 450px) {
   .auth-container {
     width: 90%;
