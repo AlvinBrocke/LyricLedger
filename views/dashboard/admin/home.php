@@ -1,65 +1,19 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LyricLedger Administrator Dashboard</title>
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../../../assets/css/dashboard.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            <div class="logo">
-                <i class="fa-solid fa-table-cells"></i>
-                <span class="logo-text">LyricLedger</span>
-            </div>
-            <div class="menu">
-                <div class="menu-item active">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-music"></i>
-                    <span>Tracks</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-file-signature"></i>
-                    <span>Registrations</span>
-                    <div class="badge">3</div>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Artists</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-compact-disc"></i>
-                    <span>Albums</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-building"></i>
-                    <span>Publishers</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span>Reports</span>
-                </div>
-            </div>
-            <div class="user">
-                <div class="user-img">
-                    <img src="/api/placeholder/36/36" alt="User">
-                </div>
-                <div class="user-info">
-                    <div class="user-name">Ann Smith</div>
-                    <div class="user-role">Administrator</div>
-                </div>
-            </div>
-            <div class="logout">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <span>Log Out</span>
-            </div>
-        </div>
+        <?php require_once '../../includes/sidebar.php'; sidebar(); ?>
+
         <div class="main-content">
             <div class="header">
                 <h1>Dashboard</h1>
