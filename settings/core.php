@@ -1,60 +1,97 @@
 <?php
 session_start();
 
-include __DIR__ . '/../controllers/auth_controller.php';
+try {
+    // Correct case-sensitive file path
+    // require_once __DIR__ . '/../controllers/AuthController.php';
+    require_once '../controllers/auth_controller.php';
 
-$auth = new AuthController();
+    $auth = new AuthController();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
-    switch ($_POST['action']) {
+        switch ($_POST['action']) {
 
-        case 'login':
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
+            case 'login':
+                $email = trim($_POST['email'] ?? '');
+                $password = $_POST['password'] ?? '';
 
-            $response = $auth->login([
-                'email' => $email,
-                'password' => $password
-            ]);
+                // Input validation
+                if (empty($email) || empty($password)) {
+                    $_SESSION['login_error'] = 'Email and password are required.';
+                    header('Location: /views/auth/login.php');
+                    exit();
+                }
 
-            if (isset($response['success'])) {
-                $_SESSION['user_id'] = $response['user_id'] ?? null;
-                $_SESSION['user_role'] = $response['role'] ?? null;
-                header('Location: ../views/dashboard/home.php');
+                // Controller logic wrapped in try-catch
+                try {
+                    $response = $auth->login([
+                        'email' => $email,
+                        'password' => $password
+                    ]);
+
+                    if (isset($response['success'])) {
+                        $_SESSION['user_id'] = $response['user_id'] ?? null;
+                        $_SESSION['user_role'] = $response['role'] ?? null;
+                        $_SESSION['full_name'] = $response['full_name'] ?? null;
+                        header('Location: ../views/dashboard/admin/home.php');
+                        exit();
+                    } else {
+                        $_SESSION['login_error'] = $response['error'] ?? 'Login failed.';
+                        header('Location: /views/auth/login.php');
+                        exit();
+                    }
+                } catch (Exception $e) {
+                    error_log('Login Exception: ' . $e->getMessage());
+                    $_SESSION['login_error'] = 'An error occurred during login.';
+                    header('Location: /views/auth/login.php');
+                    exit();
+                }
+
+                break;
+
+            case 'register':
+                try {
+                    $response = $auth->register($_POST);
+
+                    if (isset($response['success'])) {
+                        $_SESSION['registration_success'] = $response['success'];
+                        header('Location: /views/auth/login.php');
+                        exit();
+                    } else {
+                        $_SESSION['registration_error'] = $response['error'] ?? 'Registration failed.';
+                        header('Location: /views/auth/register.php');
+                        exit();
+                    }
+                } catch (Exception $e) {
+                    error_log('Registration Exception: ' . $e->getMessage());
+                    $_SESSION['registration_error'] = 'An error occurred during registration.';
+                    header('Location: /views/auth/register.php');
+                    exit();
+                }
+                break;
+
+            case 'logout':
+                session_unset();
+                session_destroy();
+                header('Location: /views/auth/login.php');
                 exit();
-            } else {
-                $_SESSION['login_error'] = $response['error'];
-                header('Location: ../views/auth/login.php');
-                exit();
-            }
-            break;
 
-        // Other actions can go here like registration, logout, etc.
-        case 'register':
-            $response = $auth->register($_POST);
-            if (isset($response['success'])) {
-                $_SESSION['registration_success'] = $response['success'];
-                header('Location: ../views/auth/login.php');
-                exit();
-            } else {
-                $_SESSION['registration_error'] = $response['error'];
-                header('Location: ../views/auth/register.php');
-                exit();
-            }
-            break;
+            default:
+                http_response_code(400);
+                echo 'Invalid action provided.';
+                break;
+        }
 
-        case 'logout':
-            session_destroy();
-            header('Location: ../views/auth/login.php');
-            exit();
-            break;
-
-        default:
-            echo "Invalid action.";
-            break;
+    } else {
+        http_response_code(403);
+        echo 'Unauthorized or malformed request.';
     }
 
-} else {
-    echo "Unauthorized request.";
+} catch (Throwable $e) {
+    // Global fail-safe error handler
+    error_log('Global Error: ' . $e->getMessage());
+    echo('Global Error: ' . $e->getMessage());
+    http_response_code(500);
+    echo 'A server error occurred. Please try again later.';
 }

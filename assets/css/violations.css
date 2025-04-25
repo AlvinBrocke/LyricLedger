@@ -1,0 +1,93 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 2rem;
+}
+
+h2 {
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.subheading {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+thead th {
+  background-color: #000;
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.status-label.pending {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.status-label.resolved {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-label.escalated {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+tr.pending { background-color: #fffbea; }
+tr.resolved { background-color: #e6ffe6; }
+tr.escalated { background-color: #ffeaea; }
+
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  margin-right: 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn.view {
+  background-color: #007bff;
+}
+
+.btn.resolve {
+  background-color: #28a745;
+}
+
+.btn.escalate {
+  background-color: #dc3545;
+}
+
+.btn.view:hover {
+  background-color: #0056b3;
+}
+
+.btn.resolve:hover {
+  background-color: #218838;
+}
+
+.btn.escalate:hover {
+  background-color: #c82333;
+}

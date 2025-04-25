@@ -18,15 +18,20 @@
                 <h2>Login</h2>
                 <p>Sign into your account to secure your music copyrights and royalties</p>
             </div>
-            <form action="../settings/core.php" method="POST">
+            <form action="../../settings/core.php" method="POST">
                 <input type="hidden" name="action" value="login">
+
+                <?php if (isset($_SESSION['login_error'])): ?>
+                    <p class="error"><?= $_SESSION['login_error']; unset($_SESSION['login_error']); ?></p>
+                <?php endif; ?>
+
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <span class="forgot-password">Forgot password?</span>
                 <button type="submit">Sign In</button>
             </form>
         </div>
-        </form>
+        
         <div class="switch-form">
             Already registered? <span onclick="registerForm()">Sign in</span>
         </div>
