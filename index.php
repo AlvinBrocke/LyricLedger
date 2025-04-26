@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LyricLedger</title>
-    <link rel="stylesheet" href="../music_royalty_2.0/css/index.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/app.js"></script>
     
@@ -21,8 +21,8 @@
             <li><a href="albums.php"><i class="fas fa-compact-disc"></i> Albums</a></li>
             <li><a href="artists.php"><i class="fas fa-microphone-alt"></i> Artists</a></li>
             <li><a href="podcasts.php"><i class="fas fa-podcast"></i> Podcast</a></li>
-            <li><a href="#" onclick="openLogin()"><i class="fas fa-user"></i> Login</a></li>
-            <li><a href="signup.php"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+            <li><a href="views/auth/register.php"><i class="fas fa-user"></i> Login</a></li>
+            
         </ul>
     </header>
 
@@ -77,7 +77,7 @@
 
     
     <!-- Popup Login Form -->
-<div id="loginPopup" class="popup-overlay">
+<!--<div id="loginPopup" class="popup-overlay">
     <div class="popup-content">
         <span class="close-btn" onclick="closeLogin()">&times;</span>
         <h2>Login</h2>
@@ -98,7 +98,7 @@
         </form>
         <p class="signup-text">Don't have an account? <a href="signup.php">Sign Up</a></p>
     </div>
-</div>
+</div> -->
 
 
     <!-- Footer -->
