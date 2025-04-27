@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 try {
     // Correct case-sensitive file path
     // require_once __DIR__ . '/../controllers/AuthController.php';
@@ -56,17 +58,18 @@ try {
 
                     if (isset($response['success'])) {
                         $_SESSION['registration_success'] = $response['success'];
-                        header('Location: /views/auth/login.php');
+                        header('Location: ../views/auth/login.php');
                         exit();
                     } else {
                         $_SESSION['registration_error'] = $response['error'] ?? 'Registration failed.';
-                        header('Location: /views/auth/register.php');
+                        header('Location: ../views/auth/register.php');
                         exit();
                     }
                 } catch (Exception $e) {
                     error_log('Registration Exception: ' . $e->getMessage());
                     $_SESSION['registration_error'] = 'An error occurred during registration.';
-                    header('Location: /views/auth/register.php');
+                    // header('Location: ../views/auth/register.php');
+                    echo 'this is an excpetion' . $e->getMessage();
                     exit();
                 }
                 break;
