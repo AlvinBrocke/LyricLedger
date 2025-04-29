@@ -7,9 +7,21 @@
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/app.js"></script>
+
+    <style>
+        img {
+            height: 250px;
+        }
+    </style>
     
 </head>
 <body>
+
+<?php
+    include("classes/db.php");
+    
+
+?>
 
     <!-- Sidebar Navigation (Header) -->
     <header class="sidebar">
@@ -37,39 +49,41 @@
             </div>
         </div>
 
+
+
         <!-- Music Section -->
         <section class="music-section">
             <h3>Made For You</h3>
             <div class="music-grid">
                 <div class="music-card">
-                    <img src="images/Asem-Beba-Dabi-afrocharts-5f5e81505d46c7d9cd7e38f-500x500.png" alt="HighLife">
-                    <h4>HighLife</h4>
-                    <p>13 songs</p>
+                    <img src="assets/media/images/afrobeats.jpg" alt="Afrobeats">
+                    <h4>Afrobeats</h4>
+                    <p>13 albums</p>
                 </div>
                 <div class="music-card">
-                    <img src="images/christian-music-album-cover-design-template-6dfdbeed0d86f1f6c472ca71170edc30_screen.jpg" alt="Worship">
-                    <h4>Worship</h4>
-                    <p>20 songs</p>
+                    <img src="assets/media/images/pop_cover.jpg" alt="Pop">
+                    <h4>Pop</h4>
+                    <p>20 albums</p>
                 </div>
                 <div class="music-card">
-                    <img src="images/08a9b0e93fa0bd61e83f1e3a9be9e547.jpg" alt="AfroPop">
-                    <h4>AfroPop</h4>
-                    <p>10 songs</p>
+                    <img src="assets/media/images/rock.jpg" alt="Rock">
+                    <h4>Rock</h4>
+                    <p>10 albums</p>
                 </div>
                 <div class="music-card">
-                    <img src="images/Screen+Shot+2019-12-31+at+3.08.47+PM.png" alt="Gospel">
-                    <h4>Gospel</h4>
-                    <p>15 songs</p>
+                    <img src="assets/media/images/jazz.jpg" alt="Jazz">
+                    <h4>Jazz</h4>
+                    <p>15 albums</p>
                 </div>
                 <div class="music-card">
-                    <img src="images/0x1900-000000-80-0-0.jpg" alt="Amapiano">
-                    <h4>Amapiano</h4>
-                    <p>10 songs</p>
+                    <img src="assets/media/images/hip-hop.jpg" alt="Hip-Hop">
+                    <h4>Hip-Hop</h4>
+                    <p>10 albums</p>
                 </div>
                 <div class="music-card">
-                    <img src="images/images.jpeg" alt="R&B">
-                    <h4>R&B</h4>
-                    <p>15 songs</p>
+                    <img src="assets/media/images/electronic_music.jpg" alt="Electronic">
+                    <h4>Electronic</h4>
+                    <p>15 albums</p>
                 </div>
             </div>
         </section>

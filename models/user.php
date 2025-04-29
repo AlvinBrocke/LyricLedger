@@ -3,9 +3,82 @@ require_once __DIR__ . '/../classes/db.php';
 class User {
     
     private $db;
+    private $email;
+    private $password;
+    private $role;
+    private $walletAddress;
+    private $fullName;
 
-    public function __construct() {
+    public function __construct($data = []) {
         $this->db = new DB();
+        if (!empty($data)) {
+            $this->setEmail($data['email'] ?? '');
+            $this->setPassword($data['password'] ?? '');
+            $this->setRole($data['role'] ?? 'user');
+            $this->setWalletAddress($data['wallet_address'] ?? '');
+            $this->setFullName($data['full_name'] ?? '');
+        }
+    }
+
+    public function setEmail($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException('Invalid email format');
+        }
+        $this->email = $email;
+    }
+
+    public function setPassword($password) {
+        if (strlen($password) < 8) {
+            throw new InvalidArgumentException('Password must be at least 8 characters long');
+        }
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    public function setRole($role) {
+        $allowedRoles = ['user', 'admin', 'artist'];
+        if (!in_array($role, $allowedRoles)) {
+            throw new InvalidArgumentException('Invalid role. Must be one of: ' . implode(', ', $allowedRoles));
+        }
+        $this->role = $role;
+    }
+
+    public function setWalletAddress($address) {
+        if (!empty($address) && !preg_match('/^0x[a-fA-F0-9]{40}$/', $address)) {
+            throw new InvalidArgumentException('Invalid Ethereum wallet address format');
+        }
+        $this->walletAddress = $address;
+    }
+
+    public function setFullName($name) {
+        if (strlen($name) < 2) {
+            throw new InvalidArgumentException('Full name must be at least 2 characters long');
+        }
+        $this->fullName = $name;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getRole() {
+        return $this->role;
+    }
+
+    public function getWalletAddress() {
+        return $this->walletAddress;
+    }
+
+    public function getFullName() {
+        return $this->fullName;
+    }
+
+    public function toArray() {
+        return [
+            'email' => $this->email,
+            'role' => $this->role,
+            'wallet_address' => $this->walletAddress,
+            'full_name' => $this->fullName
+        ];
     }
 
     public function createUser($data) {

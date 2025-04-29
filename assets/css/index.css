@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #fcf6f5;
+    background-color: #121212;
     color: black;
 }
 
@@ -128,7 +128,7 @@ body {
     font-size: 22px;
     margin-bottom: 20px;
     text-align: left;
-    color: black;
+    color: orange;
 }
 
 .music-grid {

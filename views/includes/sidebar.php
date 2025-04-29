@@ -41,7 +41,7 @@ function sidebar() {
 
     <div class="user">
         <div class="user-img">
-            <img src="/api/placeholder/36/36" alt="User">
+            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
         </div>
         <div class="user-info">
             <div class="user-name"><?= $_SESSION['full_name'] ?? 'Guest' ?></div>

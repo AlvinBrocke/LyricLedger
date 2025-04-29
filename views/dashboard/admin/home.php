@@ -83,7 +83,7 @@
                 <div class="registration-list">
                     <div class="registration-item">
                         <div class="registration-img">
-                            <img src="/api/placeholder/32/32" alt="User">
+                            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
                         </div>
                         <div class="registration-user">Michelle Rivera</div>
                         <div class="registration-time">17:40</div>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="registration-item">
                         <div class="registration-img">
-                            <img src="/api/placeholder/32/32" alt="User">
+                            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
                         </div>
                         <div class="registration-user">Arlene McCoy</div>
                         <div class="registration-time">17:40</div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="registration-item">
                         <div class="registration-img">
-                            <img src="/api/placeholder/32/32" alt="User">
+                            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
                         </div>
                         <div class="registration-user">Savannah Nguyen</div>
                         <div class="registration-time">17:40</div>

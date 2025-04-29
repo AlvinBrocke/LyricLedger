@@ -4,9 +4,103 @@ require_once __DIR__ . '/../classes/db.php';
 
 class Playlist {
     private $db;
+    private $userId;
+    private $name;
+    private $description;
+    private $coverImage;
+    private $contents = [];
 
-    public function __construct() {
+    public function __construct($data = []) {
         $this->db = new DB();
+        if (!empty($data)) {
+            $this->setUserId($data['user_id'] ?? '');
+            $this->setName($data['name'] ?? '');
+            $this->setDescription($data['description'] ?? '');
+            $this->setCoverImage($data['cover_image'] ?? '');
+        }
+    }
+
+    public function setUserId($userId) {
+        if (empty($userId)) {
+            throw new InvalidArgumentException('User ID is required');
+        }
+        $this->userId = $userId;
+    }
+
+    public function setName($name) {
+        if (strlen($name) < 3) {
+            throw new InvalidArgumentException('Playlist name must be at least 3 characters long');
+        }
+        if (strlen($name) > 100) {
+            throw new InvalidArgumentException('Playlist name cannot exceed 100 characters');
+        }
+        $this->name = $name;
+    }
+
+    public function setDescription($description) {
+        if (strlen($description) > 500) {
+            throw new InvalidArgumentException('Description cannot exceed 500 characters');
+        }
+        $this->description = $description;
+    }
+
+    public function setCoverImage($image) {
+        if (!empty($image)) {
+            $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+            $extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+            if (!in_array($extension, $allowedTypes)) {
+                throw new InvalidArgumentException('Invalid image format. Allowed formats: ' . implode(', ', $allowedTypes));
+            }
+        }
+        $this->coverImage = $image;
+    }
+
+    public function addContent($contentId) {
+        if (empty($contentId)) {
+            throw new InvalidArgumentException('Content ID is required');
+        }
+        if (in_array($contentId, $this->contents)) {
+            throw new InvalidArgumentException('Content already exists in playlist');
+        }
+        $this->contents[] = $contentId;
+    }
+
+    public function removeContent($contentId) {
+        $key = array_search($contentId, $this->contents);
+        if ($key !== false) {
+            unset($this->contents[$key]);
+            $this->contents = array_values($this->contents);
+        }
+    }
+
+    public function getUserId() {
+        return $this->userId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function getCoverImage() {
+        return $this->coverImage;
+    }
+
+    public function getContents() {
+        return $this->contents;
+    }
+
+    public function toArray() {
+        return [
+            'user_id' => $this->userId,
+            'name' => $this->name,
+            'description' => $this->description,
+            'cover_image' => $this->coverImage,
+            'contents' => $this->contents
+        ];
     }
 
     public function createPlaylist($data) {
