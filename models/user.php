@@ -1,16 +1,17 @@
 <?php
 require_once __DIR__ . '/../classes/db.php';
+
 class User {
-    
     private $db;
     private $email;
     private $password;
     private $role;
     private $walletAddress;
     private $fullName;
+    private $lastError;
 
     public function __construct($data = []) {
-        $this->db = new DB();
+        $this->db = DB::getInstance();
         if (!empty($data)) {
             $this->setEmail($data['email'] ?? '');
             $this->setPassword($data['password'] ?? '');
@@ -82,18 +83,59 @@ class User {
     }
 
     public function createUser($data) {
-        $sql = "INSERT INTO users (id, email, password_hash, role, wallet_address, full_name) VALUES (UUID(), :email, :password_hash, :role, :wallet_address, :full_name)";
-        return $this->db->insert($sql, $data);
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "INSERT INTO users (id, email, password_hash, role, wallet_address, full_name) 
+                   VALUES (UUID(), :email, :password_hash, :role, :wallet_address, :full_name)";
+            
+            $result = $this->db->insert($sql, [
+                'email' => $data['email'],
+                'password_hash' => $data['password_hash'],
+                'role' => $data['role'],
+                'wallet_address' => $data['wallet_address'],
+                'full_name' => $data['full_name']
+            ]);
+
+            if ($result) {
+                $this->db->commit();
+                return $result;
+            } else {
+                $this->db->rollBack();
+                $this->lastError = $this->db->getLastError();
+                return false;
+            }
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            $this->lastError = $e->getMessage();
+            return false;
+        }
     }
 
     public function getUserByEmail($email) {
         $sql = "SELECT * FROM users WHERE email = :email";
-        return $this->db->fetch($sql, ['email' => $email]);
+        $result = $this->db->fetch($sql, ['email' => $email]);
+        
+        if ($result === false) {
+            $this->lastError = $this->db->getLastError();
+        }
+        
+        return $result;
     }
 
     public function getUserById($id) {
         $sql = "SELECT * FROM users WHERE id = :id";
-        return $this->db->fetch($sql, ['id' => $id]);
+        $result = $this->db->fetch($sql, ['id' => $id]);
+        
+        if ($result === false) {
+            $this->lastError = $this->db->getLastError();
+        }
+        
+        return $result;
+    }
+
+    public function getLastError() {
+        return $this->lastError;
     }
 }
 

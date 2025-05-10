@@ -9,9 +9,10 @@ class Playlist {
     private $description;
     private $coverImage;
     private $contents = [];
+    private $lastError;
 
     public function __construct($data = []) {
-        $this->db = new DB();
+        $this->db = DB::getInstance();
         if (!empty($data)) {
             $this->setUserId($data['user_id'] ?? '');
             $this->setName($data['name'] ?? '');
@@ -104,21 +105,77 @@ class Playlist {
     }
 
     public function createPlaylist($data) {
-        $sql = "INSERT INTO playlists (id, user_id, name, description, cover_image) VALUES (UUID(), :user_id, :name, :description, :cover_image)";
-        return $this->db->insert($sql, $data);
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "INSERT INTO playlists (id, user_id, name, description, cover_image) 
+                   VALUES (UUID(), :user_id, :name, :description, :cover_image)";
+            
+            $result = $this->db->insert($sql, [
+                'user_id' => $data['user_id'],
+                'name' => $data['name'],
+                'description' => $data['description'],
+                'cover_image' => $data['cover_image']
+            ]);
+
+            if ($result) {
+                $this->db->commit();
+                return $result;
+            } else {
+                $this->db->rollBack();
+                $this->lastError = $this->db->getLastError();
+                return false;
+            }
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            $this->lastError = $e->getMessage();
+            return false;
+        }
     }
 
     public function addToPlaylist($playlistId, $contentId) {
-        $sql = "INSERT INTO playlist_content (playlist_id, content_id) VALUES (:playlist_id, :content_id)";
-        return $this->db->insert($sql, [
-            'playlist_id' => $playlistId,
-            'content_id' => $contentId
-        ]);
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "INSERT INTO playlist_content (playlist_id, content_id) 
+                   VALUES (:playlist_id, :content_id)";
+            
+            $result = $this->db->insert($sql, [
+                'playlist_id' => $playlistId,
+                'content_id' => $contentId
+            ]);
+
+            if ($result) {
+                $this->db->commit();
+                return true;
+            } else {
+                $this->db->rollBack();
+                $this->lastError = $this->db->getLastError();
+                return false;
+            }
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            $this->lastError = $e->getMessage();
+            return false;
+        }
     }
 
     public function getPlaylistContents($playlistId) {
-        $sql = "SELECT c.* FROM content c JOIN playlist_content pc ON c.id = pc.content_id WHERE pc.playlist_id = :playlist_id";
-        return $this->db->fetchAll($sql, ['playlist_id' => $playlistId]);
+        $sql = "SELECT c.* FROM content c 
+                JOIN playlist_content pc ON c.id = pc.content_id 
+                WHERE pc.playlist_id = :playlist_id";
+        
+        $result = $this->db->fetchAll($sql, ['playlist_id' => $playlistId]);
+        
+        if ($result === false) {
+            $this->lastError = $this->db->getLastError();
+        }
+        
+        return $result;
+    }
+
+    public function getLastError() {
+        return $this->lastError;
     }
 }
 
