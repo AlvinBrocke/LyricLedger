@@ -1,0 +1,14 @@
+{
+  "fingerprint_dim": 64,
+  "sample_rate": 8000,
+  "segment_duration": 1.0,
+  "segments_per_track": 5,
+  "segments_per_query": 3,
+  "version": "1.0.0",
+  "created_at": "2025-05-11T19:27:30.180423",
+  "performance": {
+    "top1_accuracy": 99.62,
+    "top5_accuracy": 100.0,
+    "mean_reciprocal_rank": 0.9981
+  }
+}

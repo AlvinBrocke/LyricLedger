@@ -21,4 +21,12 @@ class Content {
         $sql = "SELECT * FROM content WHERE id = :id";
         return $this->db->fetch($sql, ['id' => $id]);
     }
+
+    public function updateContentStatus($contentId, $status) {
+        $sql = "UPDATE content SET status = :status WHERE id = :id";
+        return $this->db->update($sql, [
+            'id' => $contentId,
+            'status' => $status
+        ]);
+    }
 }
