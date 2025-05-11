@@ -114,9 +114,7 @@ try {
                                     
                                 </div>
                                 <div class="track-actions">
-                                    <a href="edit-track.php?id=<?= $track['content_id']  ?>" class="edit-btn">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
+                                    <!-- edit button can be added here -->
                                     <button class="delete-btn" data-track-id="<?= $track['content_id'] ?>">
                                         <i class="fas fa-trash"></i> Delete
                                     </button>

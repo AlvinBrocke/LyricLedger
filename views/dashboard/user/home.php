@@ -65,7 +65,7 @@ try {
             FROM content c
             JOIN genres g ON c.genre_id = g.id
             WHERE c.user_id = :user_id
-            ORDER BY c.created_at DESC ",
+            ORDER BY c.created_at DESC LIMIT 3",
             [
                 'user_id' => $_SESSION['user_id'],
                 
