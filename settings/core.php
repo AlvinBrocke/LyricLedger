@@ -36,7 +36,11 @@ try {
                         $_SESSION['user_id'] = $response['user_id'] ?? null;
                         $_SESSION['user_role'] = $response['role'] ?? null;
                         $_SESSION['full_name'] = $response['full_name'] ?? null;
-                        header('Location: ../views/dashboard/admin/home.php');
+                        if ($_SESSION['user_role'] === 'admin') {
+                            header('Location: ../views/dashboard/admin/home.php');
+                        } else {
+                            header('Location: ../views/dashboard/user/home.php');
+                        }
                         exit();
                     } else {
                         $_SESSION['login_error'] = $response['error'] ?? 'Login failed.';

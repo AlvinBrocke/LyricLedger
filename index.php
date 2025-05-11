@@ -7,9 +7,21 @@
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/app.js"></script>
+
+    <style>
+        img {
+            height: 250px;
+        }
+    </style>
     
 </head>
 <body>
+
+<?php
+    include("classes/db.php");
+    
+
+?>
 
     <!-- Sidebar Navigation (Header) -->
     <header class="sidebar">
@@ -37,43 +49,34 @@
             </div>
         </div>
 
+        <?php
+        $db = DB::getInstance();
+
+        // Fetch all genres from the database
+        $genreData = $db->fetchAll("SELECT * FROM genres");
+
+        ?>
         <!-- Music Section -->
         <section class="music-section">
             <h3>Made For You</h3>
             <div class="music-grid">
-                <div class="music-card">
-                    <img src="images/Asem-Beba-Dabi-afrocharts-5f5e81505d46c7d9cd7e38f-500x500.png" alt="HighLife">
-                    <h4>HighLife</h4>
-                    <p>13 songs</p>
-                </div>
-                <div class="music-card">
-                    <img src="images/christian-music-album-cover-design-template-6dfdbeed0d86f1f6c472ca71170edc30_screen.jpg" alt="Worship">
-                    <h4>Worship</h4>
-                    <p>20 songs</p>
-                </div>
-                <div class="music-card">
-                    <img src="images/08a9b0e93fa0bd61e83f1e3a9be9e547.jpg" alt="AfroPop">
-                    <h4>AfroPop</h4>
-                    <p>10 songs</p>
-                </div>
-                <div class="music-card">
-                    <img src="images/Screen+Shot+2019-12-31+at+3.08.47+PM.png" alt="Gospel">
-                    <h4>Gospel</h4>
-                    <p>15 songs</p>
-                </div>
-                <div class="music-card">
-                    <img src="images/0x1900-000000-80-0-0.jpg" alt="Amapiano">
-                    <h4>Amapiano</h4>
-                    <p>10 songs</p>
-                </div>
-                <div class="music-card">
-                    <img src="images/images.jpeg" alt="R&B">
-                    <h4>R&B</h4>
-                    <p>15 songs</p>
-                </div>
+                <?php
+                // Loop through each genre and display it as a music card
+                foreach ($genreData as $genre) {
+                    // Assuming each genre has a 'name' and 'album_count' field
+                    echo '
+                    <div class="music-card">
+                        <a href="views/songs-genre.php?id=' . htmlspecialchars($genre['id']) . '">
+                        <img src="' . htmlspecialchars($genre['genre_coverart']) . '" alt="' . htmlspecialchars($genre['genre_name']) . '">
+                        <h4>' . htmlspecialchars($genre['genre_name']) . '</h4>
+                    </a>
+                    </div>';
+
+                }
+                ?>
             </div>
         </section>
-    </main>
+
 
     
     <!-- Popup Login Form -->

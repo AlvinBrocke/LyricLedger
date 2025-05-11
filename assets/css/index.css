@@ -1,271 +1,233 @@
-/* General Reset */
+/* Base styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-    color: black;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* Body Styling */
 body {
     display: flex;
-    flex-direction: column;
+    background-color: #f5f5f5;
+    color: #333;
     min-height: 100vh;
-    background-color: #fcf6f5;
-    color: black;
+    overflow-x: hidden;
 }
 
-/* Sidebar Navigation */
+/* Sidebar styles */
 .sidebar {
-    width: 250px;
-    background-color: #0d0d0d;
-    padding: 20px;
     position: fixed;
-    height: 100%;
-    overflow-y: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
 }
 
-.sidebar .logo {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 0;
-    color: orange;
+.logo {
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4f46e5;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .sidebar ul {
     list-style: none;
-    padding: 0;
+    padding: 1rem 0;
 }
 
 .sidebar ul li {
-    margin: 15px 0;
+    margin: 0.5rem 0;
 }
 
 .sidebar ul li a {
-    color: orange;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: #4b5563;
     text-decoration: none;
-    font-size: 16px;
-    display: block;
-    padding: 10px;
-    border-radius: 5px;
-    transition: 0.3s ease;
+    transition: all 0.2s ease;
+    gap: 0.75rem;
 }
 
 .sidebar ul li a:hover {
-    background-color: orange;
-    color: black;
+    background: #f3f4f6;
+    color: #4f46e5;
 }
 
-/* Main Content */
+.sidebar ul li a i {
+    font-size: 1.25rem;
+    width: 1.5rem;
+    text-align: center;
+}
+
+/* Main content styles */
 .main-content {
-    margin-left: 270px;
-    width: calc(100% - 270px);
-    padding: 20px;
-    text-align: center;
-    flex-grow: 1;
-    color: black;
+    flex: 1;
+    padding: 2rem;
+    margin-left: 250px;
+    min-height: 100vh;
+    background-color: #f8f9fa;
 }
 
-/* Banner Section */
+/* Banner section */
 .banner {
-    width: 100%;
-    background: url('../images/banner-bg.jpg') no-repeat center center/cover;
-    padding: 80px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-}
-
-.banner-content {
-    text-align: center;
-    background: rgba(153, 0, 17, 0.8);
-    padding: 30px;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
     color: white;
-    max-width: 80%;
-    box-shadow: 0 0 15px rgba(153, 0, 17, 0.5);
+    text-align: center;
 }
 
 .banner-content h2 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
 }
 
 .banner-content p {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
 }
 
 .cta-btn {
-    background: orange;
-    color: black;
-    padding: 12px 25px;
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: white;
+    color: #4f46e5;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: 0.3s ease;
-    border: 2px solid black;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: transform 0.2s ease;
 }
 
 .cta-btn:hover {
-    background: black;
-    color: orange;
-    border: 2px solid orange;
+    transform: translateY(-2px);
 }
 
-/* Music Section */
+/* Music section */
 .music-section {
-    margin-top: 40px;
+    padding: 2rem 0;
 }
 
 .music-section h3 {
-    font-size: 22px;
-    margin-bottom: 20px;
-    text-align: left;
-    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #111827;
 }
 
 .music-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 30px;
-    justify-content: center;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
 }
 
 .music-card {
-    background: #bbbbbb;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    color: black;
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
 }
 
 .music-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
 }
 
 .music-card img {
     width: 100%;
-    border-radius: 8px;
+    height: 200px;
+    object-fit: cover;
 }
 
 .music-card h4 {
-    margin-top: 10px;
-    font-size: 18px;
-    color: black;
+    padding: 1rem;
+    font-size: 1.1rem;
+    color: #111827;
 }
 
 .music-card p {
-    font-size: 14px;
-    color: black;
+    padding: 0 1rem 1rem;
+    color: #6b7280;
+    font-size: 0.9rem;
 }
 
 /* Footer */
 .footer {
     text-align: center;
-    padding: 15px;
-    background: #bbbbbb;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-    color: black;
+    padding: 2rem;
+    background: white;
+    color: #6b7280;
+    margin-left: 250px;
 }
 
-/* Login Popup Styling */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
+/* Responsive design */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .sidebar ul li a span {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 80px;
+    }
+    
+    .footer {
+        margin-left: 80px;
+    }
 }
 
-/* Popup Content */
-.popup-content {
-    background: black;
-    padding: 20px;
-    width: 350px;
-    border-radius: 8px;
-    text-align: left;
-    box-shadow: 0px 0px 10px orange;
-    animation: fadeIn 0.3s ease-in-out;
+@media (max-width: 768px) {
+    .banner-content h2 {
+        font-size: 2rem;
+    }
+    
+    .music-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .music-card img {
+        height: 150px;
+    }
 }
 
-/* Close Button */
-.close-btn {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
-    color: orange;
-}
-
-.close-btn:hover {
-    color: #ff9800;
-}
-
-/* Input Fields */
-.input-group {
-    margin: 15px 0;
-}
-
-.input-group label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: orange;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid orange;
-    background: black;
-    color: white;
-    border-radius: 5px;
-}
-
-/* Login Button */
-.login-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: orange;
-    color: black;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.login-btn:hover {
-    background-color: #ff9800;
-}
-
-/* Signup Text */
-.signup-text {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.signup-text a {
-    color: orange;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.signup-text a:hover {
-    text-decoration: underline;
+@media (max-width: 576px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    
+    .footer {
+        margin-left: 0;
+    }
+    
+    .banner {
+        padding: 2rem 1rem;
+    }
+    
+    .banner-content h2 {
+        font-size: 1.5rem;
+    }
 }

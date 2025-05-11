@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LyricLedger Administrator Dashboard</title>
-    <link rel="stylesheet" href="../../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../../../assets/css/admin_dashboard.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -83,7 +83,7 @@
                 <div class="registration-list">
                     <div class="registration-item">
                         <div class="registration-img">
-                            <img src="/api/placeholder/32/32" alt="User">
+                            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
                         </div>
                         <div class="registration-user">Michelle Rivera</div>
                         <div class="registration-time">17:40</div>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="registration-item">
                         <div class="registration-img">
-                            <img src="/api/placeholder/32/32" alt="User">
+                            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
                         </div>
                         <div class="registration-user">Arlene McCoy</div>
                         <div class="registration-time">17:40</div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="registration-item">
                         <div class="registration-img">
-                            <img src="/api/placeholder/32/32" alt="User">
+                            <img src="../../../assets/media/images/1b2e314e767a957a44ed8f992c6d9098.jpg" alt="User">
                         </div>
                         <div class="registration-user">Savannah Nguyen</div>
                         <div class="registration-time">17:40</div>
