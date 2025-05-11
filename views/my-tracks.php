@@ -102,11 +102,15 @@ try {
                                     <i class="fas fa-music"></i>
                                 </div>
                           
+                               
                            
                             <div class="track-info">
                                 <h3><?= htmlspecialchars($track['title']) ?></h3>
                                 <p class="genre"><?= htmlspecialchars($track['genre_name']) ?></p>
                                 <div class="track-stats">
+                                    <audio controls class="audio-player">
+                                        <source src="../<?= htmlspecialchars($track['file_path']) ?>" type="audio/mpeg" autoplay>
+                                    </audio>
                                     <div class="stat">
                                         <i class="fas fa-play"></i>
                                         <span><?= number_format($track['play_count']) ?> Plays</span>

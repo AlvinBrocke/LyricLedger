@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LyricLedger</title>
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/app.js"></script>
 
@@ -41,42 +41,45 @@
     <!-- Main Content -->
     <main class="main-content">
         <!-- Hero/Banner Section -->
-        <div class="banner">
-            <div class="banner-content">
-                <h2>Protect Your Music, Secure Your Rights</h2>
-                <p>Contact us to load your catalogue.</p>
-                <a href="mailto:lyricledger@support.com" class="cta-btn">Contact Us</a>
-            </div>
-        </div>
+       
 
         <?php
+
+        ini_set('display_errors', '1');
+        ini_set('display_startup_errors', '1');
+        error_reporting(E_ALL);
+
+
+
+        include("../classes/db.php");
         $db = DB::getInstance();
-
-        // Fetch all genres from the database
-        $genreData = $db->fetchAll("SELECT * FROM genres");
-
+        $genreId = $_GET['id'];
+        $genreSongs = $db->fetchAll("SELECT * FROM genres JOIN content ON genres.id = content.genre_id WHERE genres.id = :id", ['id' => $genreId]);
         ?>
-        <!-- Music Section -->
-        <section class="music-section">
-            <h3>Made For You</h3>
-            <div class="music-grid">
-                <?php
-                // Loop through each genre and display it as a music card
-                foreach ($genreData as $genre) {
-                    // Assuming each genre has a 'name' and 'album_count' field
-                    echo '
-                    <div class="music-card">
-                        <a href="views/songs-genre.php?id=' . htmlspecialchars($genre['id']) . '">
-                        <img src="' . htmlspecialchars($genre['genre_coverart']) . '" alt="' . htmlspecialchars($genre['genre_name']) . '">
-                        <h4>' . htmlspecialchars($genre['genre_name']) . '</h4>
-                    </a>
-                    </div>';
 
+        
+
+        <!-- Music Section -->
+         
+        <section class="music-section">
+            <h3>AfroBeats Songs</h3>
+            <div class="music-grid">
+                <?php   foreach ($genreSongs as $songs) { 
+                    echo '<div class="music-card">
+                    <img src="../' . htmlspecialchars($songs['genre_coverart']) . '" alt="' . htmlspecialchars($songs['genre_name']) . '">
+                    <h4>' . htmlspecialchars($songs['title']) . '</h4>
+                    <audio controls class="audio-player">
+                        <source src="../' . htmlspecialchars($songs['file_path']) . '" type="audio/mpeg">
+                    </audio>
+
+                </div>';
                 }
                 ?>
+
+               
             </div>
         </section>
-
+    </main>
 
     
     <!-- Popup Login Form -->
