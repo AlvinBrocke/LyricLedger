@@ -39,8 +39,6 @@ unset($_SESSION['register_success'], $_SESSION['register_error']);
           <select id="role" name="role" required>
             <option value="">Select Role</option>
             <option value="artist">Artist</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
           </select>
         </div>
 
