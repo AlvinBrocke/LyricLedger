@@ -113,7 +113,7 @@ try {
                                     </audio>
                                     <div class="stat">
                                         <i class="fas fa-play"></i>
-                                        <span><?= number_format($track['play_count']) ?> Plays</span>
+                                        <span><?= number_format($track['total_play_count']) ?> Plays</span>
                                     </div>
                                     
                                 </div>

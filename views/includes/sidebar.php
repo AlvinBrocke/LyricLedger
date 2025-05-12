@@ -1,5 +1,7 @@
 <?php
 function sidebar() {
+    // Get current page for active state
+    $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <div class="sidebar">
     <div class="logo">
@@ -8,28 +10,28 @@ function sidebar() {
     </div>
 
     <div class="menu">
-        <div class="menu-item active">
+        <a href="../admin/home.php" class="menu-item <?= $current_page === 'home.php' ? 'active' : '' ?>">
             <i class="fa-solid fa-chart-line"></i>
             <span>Dashboard</span>
-        </div>
+        </a>
 
-        <a href="../admin/content.php" class="menu-item">
+        <a href="../admin/content.php" class="menu-item <?= $current_page === 'content.php' ? 'active' : '' ?>">
            <i class="fa-solid fa-music"></i>
             <span>Contents</span>
         </a>
 
-        <a href="../admin/royalties.php" class="menu-item">
+        <a href="../admin/royalties.php" class="menu-item <?= $current_page === 'royalties.php' ? 'active' : '' ?>">
             <i class="fa-solid fa-file-signature"></i>
             <span>Royalties</span>
             <div class="badge">3</div>
         </a>
 
-        <a href="../admin/users.php" class="menu-item">
+        <a href="../admin/users.php" class="menu-item <?= $current_page === 'users.php' ? 'active' : '' ?>">
             <i class="fa-solid fa-user"></i>
             <span>Users</span>
         </a>
 
-        <a href="../admin/violations.php" class="menu-item">
+        <a href="../admin/violations.php" class="menu-item <?= $current_page === 'violations.php' ? 'active' : '' ?>">
             <i class="fa-solid fa-compact-disc"></i>
             <span>Violations</span>
         </a>
@@ -46,7 +48,7 @@ function sidebar() {
             </div>
         </div>
 
-        <form action="../../auth/login.php" method="POST">
+        <form action="../../auth/logout.php" method="POST">
             <button type="submit" class="logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Log Out</span>

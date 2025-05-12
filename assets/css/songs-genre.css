@@ -114,6 +114,11 @@ body {
 }
 
 /* Music section */
+.audio-player {
+    z-index: 3; /* Ensure it's above anything else */
+    position: relative; /* Needed for z-index to apply */
+}
+
 .music-section {
     padding: 2rem 0;
 }
@@ -145,22 +150,21 @@ body {
     padding: 0.5rem;
 }
 
-.music-card {
+/* .music-card {
     background: white;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     position: relative;
-    cursor: pointer;
-}
+} */
 
-.music-card:hover {
+/* .music-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-}
+} */
 
-.music-card::before {
+/* .music-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -175,7 +179,7 @@ body {
 
 .music-card:hover::before {
     opacity: 1;
-}
+} */
 
 .music-card img {
     width: 100%;
@@ -184,11 +188,12 @@ body {
     transition: transform 0.3s ease;
 }
 
-.music-card:hover img {
+/* .music-card:hover img {
     transform: scale(1.05);
-}
+} */
 
 .music-card .play-icon {
+    pointer-events: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -205,10 +210,10 @@ body {
     z-index: 2;
 }
 
-.music-card:hover .play-icon {
+/* .music-card:hover .play-icon {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
-}
+} */
 
 .music-card .play-icon i {
     color: #4f46e5;

@@ -1,19 +1,23 @@
 /* Admin Dashboard Styles */
 :root {
-    --primary-color: #1a1a1a;
-    --secondary-color: #2d2d2d;
-    --accent-color: #00ff88;
-    --text-color: #ffffff;
-    --text-secondary: #b3b3b3;
-    --light-gray: #2d2d2d;
-    --border-color: #404040;
-    --success-color: #00ff88;
-    --warning-color: #ffd700;
-    --danger-color: #ff4444;
-    --card-bg: #2d2d2d;
-    --hover-color: #404040;
+    --primary-color: #f5f5f5;
+    --secondary-color: #ffffff;
+    --accent-color: #4f46e5;
+    --text-color: #333333;
+    --text-secondary: #6b7280;
+    --light-gray: #f3f4f6;
+    --border-color: #e5e7eb;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --card-bg: #ffffff;
+    --hover-color: #f3f4f6;
     --sidebar-width: 280px;
     --sidebar-collapsed-width: 70px;
+    --sidebar-bg: #1a1a1a;
+    --sidebar-text: #ffffff;
+    --sidebar-hover: #2d2d2d;
+    --sidebar-border: #404040;
 }
 
 /* Base Styles */
@@ -21,6 +25,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
@@ -38,16 +43,16 @@ body {
     position: relative;
 }
 
-/* Sidebar */
+/* Sidebar - Keeping it dark */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: var(--secondary-color);
-    color: var(--text-color);
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
     padding: 1.5rem;
     position: fixed;
     height: 100vh;
     overflow-y: auto;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--sidebar-border);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -73,7 +78,7 @@ body {
 .logo-text {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--sidebar-text);
     letter-spacing: 0.5px;
 }
 
@@ -99,13 +104,13 @@ body {
 }
 
 .menu-item:hover {
-    background-color: var(--hover-color);
+    background-color: var(--sidebar-hover);
     color: var(--accent-color);
     transform: translateX(4px);
 }
 
 .menu-item.active {
-    background-color: var(--hover-color);
+    background-color: var(--sidebar-hover);
     color: var(--accent-color);
     font-weight: 500;
 }
@@ -211,7 +216,7 @@ body {
     font-size: 1.25rem;
 }
 
-/* Main Content */
+/* Main Content - Light Theme */
 .main-content {
     flex: 1;
     margin-left: var(--sidebar-width);
@@ -229,14 +234,12 @@ body {
     background-color: var(--card-bg);
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 1px solid var(--border-color);
-    position: relative;
-    z-index: 1;
 }
 
 .header h1 {
@@ -256,7 +259,7 @@ body {
 }
 
 .search input {
-    background-color: var(--secondary-color);
+    background-color: var(--light-gray);
     border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 8px 12px 8px 35px;
@@ -344,13 +347,13 @@ body {
 .panel {
     background-color: var(--card-bg);
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--border-color);
     margin-bottom: 20px;
 }
 
 .panel-header {
-    padding: 20px;
+    padding: 1.25rem;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
@@ -489,6 +492,113 @@ body {
     height: 300px;
 }
 
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: var(--light-gray);
+}
+
+th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+tbody tr:hover {
+    background-color: var(--hover-color);
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+}
+
+.delete-btn i {
+    font-size: 14px;
+}
+
+/* Message Styles */
+.success-message {
+    background-color: #ecfdf5;
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message {
+    background-color: #fef2f2;
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.empty-state i {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: 3rem;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
@@ -519,43 +629,27 @@ body {
         font-size: 1.4rem;
     }
 
-    .menu-item .badge {
-        position: absolute;
-        top: 0.25rem;
-        right: 0.25rem;
-        padding: 0.15rem 0.35rem;
-        font-size: 0.7rem;
-        min-width: 1.25rem;
+    .header {
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    .user {
-        justify-content: center;
-        padding: 0.75rem 0;
+    .search-date {
+        width: 100%;
+        flex-direction: column;
     }
 
-    .user-img {
-        width: 2.25rem;
-        height: 2.25rem;
+    .search {
+        width: 100%;
     }
 
-    .logout {
-        justify-content: center;
-        padding: 0.875rem;
+    .search input {
+        width: 100%;
     }
 
-    .grid-2 {
-        grid-template-columns: 1fr;
-    }
-
-    .registration-item,
-    .popular-item {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-    }
-
-    .registration-user,
-    .popular-name {
-        flex: 1 1 100%;
+    table {
+        display: block;
+        overflow-x: auto;
     }
 }
 
@@ -565,7 +659,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--secondary-color);
+    background: var(--light-gray);
 }
 
 ::-webkit-scrollbar-thumb {
