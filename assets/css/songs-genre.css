@@ -119,55 +119,148 @@ body {
 }
 
 .music-section h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
     color: #111827;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.music-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 2px;
 }
 
 .music-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 0.5rem;
 }
 
 .music-card {
     background: white;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
 }
 
 .music-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.music-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.music-card:hover::before {
+    opacity: 1;
 }
 
 .music-card img {
     width: 100%;
-    height: 200px;
+    height: 300px;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.music-card:hover img {
+    transform: scale(1.05);
+}
+
+.music-card .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(255, 255, 255, 0.9);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.music-card:hover .play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.music-card .play-icon i {
+    color: #4f46e5;
+    font-size: 1.25rem;
+}
+
+.music-card .card-content {
+    padding: 1.25rem;
+    background: white;
 }
 
 .music-card h4 {
-    padding: 1rem;
     font-size: 1.1rem;
+    font-weight: 600;
     color: #111827;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .music-card p {
-    padding: 0 1rem 1rem;
     color: #6b7280;
     font-size: 0.9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.music-card p i {
+    color: #4f46e5;
+    font-size: 0.8rem;
 }
 
 /* Footer */
 .footer {
     text-align: center;
-    padding: 2rem;
-    background: white;
-    color: #6b7280;
+    padding: 1.5rem;
+    background: #1a1a1a;
+    color: #ffffff;
     margin-left: 250px;
+    position: relative;
+    width: calc(100% - 250px);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 /* Responsive design */
@@ -191,6 +284,7 @@ body {
     
     .footer {
         margin-left: 80px;
+        width: calc(100% - 80px);
     }
 }
 
@@ -200,11 +294,16 @@ body {
     }
     
     .music-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1.5rem;
     }
     
     .music-card img {
-        height: 150px;
+        height: 180px;
+    }
+    
+    .music-card .card-content {
+        padding: 1rem;
     }
 }
 
@@ -221,14 +320,9 @@ body {
     }
     
     .footer {
-        text-align: center;
-        padding: 2rem;
-        background: white;
-        color: #6b7280;
-        margin-left: 250px;
-        position: absolute;
-        bottom: 0;
-        width: calc(100% - 250px); /* To account for the sidebar width */
+        margin-left: 0;
+        width: 100%;
+        padding: 1rem;
     }
     
     .banner {
@@ -237,5 +331,22 @@ body {
     
     .banner-content h2 {
         font-size: 1.5rem;
+    }
+    
+    .music-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .music-card img {
+        height: 100px;
+    }
+    
+    .music-card h4 {
+        font-size: 1rem;
+    }
+    
+    .music-card p {
+        font-size: 0.85rem;
     }
 }

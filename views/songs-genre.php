@@ -28,7 +28,7 @@
         <div class="logo">LyricLedger</div>
         <ul>
             <li><a href="../index.php"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="views/auth/register.php"><i class="fas fa-user"></i> Login</a></li>
+            <li><a href="auth/login.php"><i class="fas fa-user"></i> Login</a></li>
             
         </ul>
     </header>
