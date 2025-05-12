@@ -216,15 +216,9 @@ body {
     }
     
     .main-content {
-        flex: 1;
-        padding: 2rem;
-        margin-left: 250px;
-        min-height: 100vh;
-        background-color: #f8f9fa;
-        display: flex;
-        flex-direction: column;
+        margin-left: 0;
+        padding: 1rem;
     }
-    
     
     .footer {
         text-align: center;

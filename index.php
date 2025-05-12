@@ -27,12 +27,7 @@
     <header class="sidebar">
         <div class="logo">LyricLedger</div>
         <ul>
-            <li><a href="home.php"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="trending.php"><i class="fas fa-fire"></i> Trending</a></li>
-            <li><a href="songs.php"><i class="fas fa-music"></i> Songs</a></li>
-            <li><a href="albums.php"><i class="fas fa-compact-disc"></i> Albums</a></li>
-            <li><a href="artists.php"><i class="fas fa-microphone-alt"></i> Artists</a></li>
-            <li><a href="podcasts.php"><i class="fas fa-podcast"></i> Podcast</a></li>
+            <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="views/auth/register.php"><i class="fas fa-user"></i> Login</a></li>
             
         </ul>
