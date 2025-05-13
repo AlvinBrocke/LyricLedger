@@ -21,7 +21,7 @@ try {
                 // Input validation
                 if (empty($email) || empty($password)) {
                     $_SESSION['login_error'] = 'Email and password are required.';
-                    header('Location: /views/auth/login.php');
+                    header('Location: ../views/auth/login.php');
                     exit();
                 }
 
@@ -44,13 +44,13 @@ try {
                         exit();
                     } else {
                         $_SESSION['login_error'] = $response['error'] ?? 'Login failed.';
-                        header('Location: /views/auth/login.php');
+                        header('Location: ../views/auth/login.php');
                         exit();
                     }
                 } catch (Exception $e) {
                     error_log('Login Exception: ' . $e->getMessage());
                     $_SESSION['login_error'] = 'An error occurred during login.';
-                    header('Location: /views/auth/login.php');
+                    header('Location: ../views/auth/login.php');
                     exit();
                 }
 
@@ -81,7 +81,7 @@ try {
             case 'logout':
                 session_unset();
                 session_destroy();
-                header('Location: /views/auth/login.php');
+                header('Location: ../views/auth/login.php');
                 exit();
 
             default:
