@@ -211,6 +211,73 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
         .similar-tracks-list::-webkit-scrollbar-thumb:hover {
             background: #bbb;
         }
+
+        /* Add status modal styles */
+        .status-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .status-modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 28px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            animation: modalSlideIn 0.3s ease-out;
+            text-align: center;
+        }
+
+        .status-modal-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .status-modal-icon.success {
+            color: #4CAF50;
+        }
+
+        .status-modal-icon.error {
+            color: #ff6b6b;
+        }
+
+        .status-modal-message {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .status-modal-progress {
+            width: 100%;
+            height: 4px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .status-modal-progress-bar {
+            height: 100%;
+            background: #4CAF50;
+            width: 100%;
+            animation: progressShrink 5s linear forwards;
+        }
+
+        @keyframes progressShrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
     </style>
 </head>
 <body>
@@ -290,6 +357,20 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
                     </div>
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- Add the status modal HTML before the similarity modal -->
+    <div id="statusModal" class="status-modal-overlay">
+        <div class="status-modal-content">
+            <div class="status-modal-icon">
+                <i class="fas fa-check-circle success"></i>
+                <i class="fas fa-times-circle error"></i>
+            </div>
+            <div class="status-modal-message"></div>
+            <div class="status-modal-progress">
+                <div class="status-modal-progress-bar"></div>
+            </div>
         </div>
     </div>
 
@@ -383,6 +464,32 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
             }
         }
 
+        // Add status modal functions
+        function showStatusModal(message, isSuccess) {
+            const modal = document.getElementById('statusModal');
+            const iconContainer = modal.querySelector('.status-modal-icon');
+            const successIcon = iconContainer.querySelector('.success');
+            const errorIcon = iconContainer.querySelector('.error');
+            const messageElement = modal.querySelector('.status-modal-message');
+            
+            // Set message and icon
+            messageElement.textContent = message;
+            successIcon.style.display = isSuccess ? 'block' : 'none';
+            errorIcon.style.display = isSuccess ? 'none' : 'block';
+            
+            // Show modal
+            modal.style.display = 'flex';
+            
+            // Hide modal after 5 seconds
+            setTimeout(() => {
+                modal.style.display = 'none';
+                if (isSuccess) {
+                    window.location.href = 'my-tracks.php';
+                }
+            }, 2000);
+        }
+
+        // Update the handleUpload function
         async function handleUpload(event) {
             event.preventDefault();
             const form = document.getElementById('uploadForm');
@@ -401,9 +508,8 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
                 const audioFile = formData.get('audio');
                 const fingerprintData = new FormData();
                 fingerprintData.append('file', audioFile);
-                fingerprintData.append('track_id', crypto.randomUUID()); // Generate a unique track ID
+                fingerprintData.append('track_id', crypto.randomUUID());
 
-                console.log('Sending file:', audioFile);
                 const fingerprintResponse = await fetch('http://127.0.0.1:5000/fingerprint', {
                     method: 'POST',
                     body: fingerprintData
@@ -437,13 +543,8 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
                     throw new Error('Failed to upload track');
                 }
 
-                // Show success message and redirect
-                document.getElementById('success-message').textContent = uploadResult;
-                setTimeout(() => {
-                    errorMessage.textContent = '';
-                    successMessage.textContent = '';
-                }, 5000);
-                // window.location.href = 'my-tracks.php';
+                // Show success message in modal
+                showStatusModal('Track uploaded successfully! Redirecting to your tracks...', true);
 
             } catch (error) {
                 if (error.message === 'Upload cancelled by user') {
@@ -451,13 +552,8 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
                     console.log('Upload cancelled by user');
                     return;
                 }
-                // Handle other errors
-                console.error('Upload error:', error);
-                document.getElementById('error-message').textContent = error.message || 'An error occurred during upload';
-                setTimeout(() => {
-                    errorMessage.innerText = '';
-                    successMessage.innerHTML = '';
-                }, 5000);
+                // Show error message in modal
+                showStatusModal(error.message || 'An error occurred during upload', false);
             } finally {
                 // Reset button state
                 submitBtn.disabled = false;
