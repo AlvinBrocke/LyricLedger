@@ -31,6 +31,187 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
     <link rel="stylesheet" href="../assets/css/user_dashboard.css">
     <link rel="stylesheet" href="../assets/css/upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Update modal styles to match user dashboard theme */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 28px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-title i {
+            color: #ff6b6b;
+            font-size: 1.6rem;
+        }
+
+        .modal-body {
+            color: #444;
+            margin-bottom: 28px;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 16px;
+        }
+
+        .similar-tracks-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            max-height: 240px;
+            overflow-y: auto;
+            border: 1px solid #eaeaea;
+        }
+
+        .similar-tracks-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .similar-tracks-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eaeaea;
+            color: #555;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .similar-tracks-list li:before {
+            content: '🎵';
+            font-size: 1.1rem;
+        }
+
+        .similar-tracks-list li:last-child {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-btn i {
+            font-size: 1rem;
+        }
+
+        .modal-btn.cancel {
+            background: #f8f9fa;
+            color: #555;
+            border: 1px solid #eaeaea;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .modal-btn.confirm {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .modal-btn.confirm:hover {
+            background: #43A047;
+            transform: translateY(-1px);
+        }
+
+        .modal-btn.danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .modal-btn.danger:hover {
+            background: #ff5252;
+            transform: translateY(-1px);
+        }
+
+        /* Add scrollbar styling for the similar tracks list */
+        .similar-tracks-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .similar-tracks-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .similar-tracks-list::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .similar-tracks-list::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+    </style>
 </head>
 <body>
     <?php userSidebar(); ?>
@@ -112,128 +293,214 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
         </div>
     </div>
 
+    <div id="similarityModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Similar Tracks Found
+                </div>
+            </div>
+            <div class="modal-body">
+                <p>We found some similar tracks in our database that might match your upload. Please review them carefully:</p>
+                <div class="similar-tracks-list" id="similarTracksList">
+                    <!-- Similar tracks will be inserted here -->
+                </div>
+                <p>Would you like to proceed with the upload anyway?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeSimilarityModal()">
+                    <i class="fas fa-times"></i>
+                    Cancel Upload
+                </button>
+                <button class="modal-btn confirm" onclick="confirmUpload()">
+                    <i class="fas fa-check"></i>
+                    Proceed with Upload
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
         
+        let uploadPromiseResolve;
+        let uploadPromiseReject;
 
-    async function handleUpload(event) {
-        event.preventDefault();
-        const form = document.getElementById('uploadForm');
-        const formData = new FormData(form);
-        const submitBtn = form.querySelector('.upload-btn');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const progressBar = submitBtn.querySelector('.progress-bar');
-        
-        try {
-            // Disable submit button and show loading state
-            submitBtn.disabled = true;
-            btnText.textContent = 'Processing...';
-            progressBar.style.display = 'block';
-
-            // First, send the audio file to the Flask API for fingerprinting
-            const audioFile = formData.get('audio');
-            const fingerprintData = new FormData();
-            fingerprintData.append('file', audioFile);
-            fingerprintData.append('track_id', crypto.randomUUID()); // Generate a unique track ID
-
-            console.log('Sending file:', audioFile);
-            const fingerprintResponse = await fetch('http://127.0.0.1:5000/fingerprint', {
-                method: 'POST',
-                body: fingerprintData
+        function showSimilarityModal(similarTracks) {
+            const modal = document.getElementById('similarityModal');
+            const tracksList = document.getElementById('similarTracksList');
+            
+            // Clear previous content
+            tracksList.innerHTML = '';
+            
+            // Add similar tracks to the list
+            const ul = document.createElement('ul');
+            similarTracks.forEach(track => {
+                const li = document.createElement('li');
+                const similarity = (track.similarity * 100).toFixed(1);
+                li.innerHTML = `
+                    <span class="track-title">${track.title}</span>
+                    <span class="similarity-badge" style="
+                        background: ${similarity >= 80 ? '#ff6b6b' : similarity >= 50 ? '#ffd93d' : '#4CAF50'};
+                        color: ${similarity >= 80 ? 'white' : '#333'};
+                        padding: 2px 8px;
+                        border-radius: 12px;
+                        font-size: 0.9rem;
+                        margin-left: auto;
+                    ">
+                        ${similarity}% match
+                    </span>
+                `;
+                ul.appendChild(li);
             });
-
-            const fingerprintResult = await fingerprintResponse.json();
-
-            if (!fingerprintResponse.ok) {
-                throw new Error(fingerprintResult.error || 'Failed to process audio file');
-            }
-
-            // Handle the fingerprint response
-            if (fingerprintResult.status === 'similar_tracks_found') {
-                // Show similar tracks warning
-                const similarTracksList = fingerprintResult.similar_tracks.map(track => 
-                    `Track ID: ${track.track_id} (Similarity: ${(track.similarity * 100).toFixed(2)}%)`
-                ).join('\n');
-
-                if (!confirm(`Similar tracks found in the database:\n${similarTracksList}\n\nDo you still want to upload this track?`)) {
-                    throw new Error('Upload cancelled by user');
-                }
-            }
-
-            // Add the fingerprint to the form data
-            formData.append('fingerprint', JSON.stringify(fingerprintResult));
-
-            // Now send the complete form data to upload_music.php
-            const uploadResponse = await fetch('../actions/upload_music.php', {
-                method: 'POST',
-                body: formData
+            tracksList.appendChild(ul);
+            
+            // Show the modal with animation
+            modal.style.display = 'flex';
+            
+            // Return a promise that will be resolved when the user makes a choice
+            return new Promise((resolve, reject) => {
+                uploadPromiseResolve = resolve;
+                uploadPromiseReject = reject;
             });
-
-            const uploadResult = await uploadResponse.text();
-
-            if (!uploadResponse.ok) {
-                throw new Error('Failed to upload track');
-            }
-
-            // Show success message and redirect
-            document.getElementById('success-message').textContent = uploadResult;
-            setTimeout(() => {
-            errorMessage.textContent = '';
-            successMessage.textContent = '';
-        }, 5000);
-            // window.location.href = 'my-tracks.php';
-
-        } catch (error) {
-            console.error('Upload error:', error);
-            document.getElementById('error-message').textContent = error.message || 'An error occurred during upload';
-            setTimeout(() => {
-                errorMessage.innerText = '';
-                successMessage.innerHTML = '';
-            }, 5000);
-        } finally {
-            // Reset button state
-            submitBtn.disabled = false;
-            btnText.textContent = 'Upload Track';
-            progressBar.style.display = 'none';
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('uploadForm');
-        form.addEventListener('submit', handleUpload);
+        function closeSimilarityModal() {
+            const modal = document.getElementById('similarityModal');
+            modal.style.display = 'none';
+            if (uploadPromiseReject) {
+                uploadPromiseReject(new Error('Upload cancelled by user'));
+            }
+        }
 
-        // Cover image preview
-        const coverInput = document.getElementById('cover');
-        const coverPreview = document.getElementById('coverPreview');
+        function confirmUpload() {
+            const modal = document.getElementById('similarityModal');
+            modal.style.display = 'none';
+            if (uploadPromiseResolve) {
+                uploadPromiseResolve();
+            }
+        }
 
-        coverInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    coverPreview.innerHTML = `<img src="${e.target.result}" alt="Cover Preview">`;
+        async function handleUpload(event) {
+            event.preventDefault();
+            const form = document.getElementById('uploadForm');
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('.upload-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const progressBar = submitBtn.querySelector('.progress-bar');
+            
+            try {
+                // Disable submit button and show loading state
+                submitBtn.disabled = true;
+                btnText.textContent = 'Processing...';
+                progressBar.style.display = 'block';
+
+                // First, send the audio file to the Flask API for fingerprinting
+                const audioFile = formData.get('audio');
+                const fingerprintData = new FormData();
+                fingerprintData.append('file', audioFile);
+                fingerprintData.append('track_id', crypto.randomUUID()); // Generate a unique track ID
+
+                console.log('Sending file:', audioFile);
+                const fingerprintResponse = await fetch('http://127.0.0.1:5000/fingerprint', {
+                    method: 'POST',
+                    body: fingerprintData
+                });
+
+                const fingerprintResult = await fingerprintResponse.json();
+
+                if (!fingerprintResponse.ok) {
+                    throw new Error(fingerprintResult.error || 'Failed to process audio file');
                 }
-                reader.readAsDataURL(file);
-            } else {
-                coverPreview.innerHTML = '';
-            }
-        });
 
-        // File info display
-        const audioInput = document.getElementById('audio');
-        const audioInfo = document.getElementById('audioInfo');
+                // Handle the fingerprint response
+                if (fingerprintResult.status === 'similar_tracks_found') {
+                    // Show similar tracks warning
+                    const similarTracks = fingerprintResult.similar_tracks;
+                    await showSimilarityModal(similarTracks);
+                }
 
-        audioInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const size = (file.size / (1024 * 1024)).toFixed(2);
-                audioInfo.textContent = `Selected file: ${file.name} (${size} MB)`;
-            } else {
-                audioInfo.textContent = '';
+                // Add the fingerprint to the form data
+                formData.append('fingerprint', JSON.stringify(fingerprintResult));
+
+                // Now send the complete form data to upload_music.php
+                const uploadResponse = await fetch('../actions/upload_music.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const uploadResult = await uploadResponse.text();
+
+                if (!uploadResponse.ok) {
+                    throw new Error('Failed to upload track');
+                }
+
+                // Show success message and redirect
+                document.getElementById('success-message').textContent = uploadResult;
+                setTimeout(() => {
+                    errorMessage.textContent = '';
+                    successMessage.textContent = '';
+                }, 5000);
+                // window.location.href = 'my-tracks.php';
+
+            } catch (error) {
+                if (error.message === 'Upload cancelled by user') {
+                    // Handle user cancellation
+                    console.log('Upload cancelled by user');
+                    return;
+                }
+                // Handle other errors
+                console.error('Upload error:', error);
+                document.getElementById('error-message').textContent = error.message || 'An error occurred during upload';
+                setTimeout(() => {
+                    errorMessage.innerText = '';
+                    successMessage.innerHTML = '';
+                }, 5000);
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.textContent = 'Upload Track';
+                progressBar.style.display = 'none';
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('uploadForm');
+            form.addEventListener('submit', handleUpload);
+
+            // Cover image preview
+            const coverInput = document.getElementById('cover');
+            const coverPreview = document.getElementById('coverPreview');
+
+            coverInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        coverPreview.innerHTML = `<img src="${e.target.result}" alt="Cover Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    coverPreview.innerHTML = '';
+                }
+            });
+
+            // File info display
+            const audioInput = document.getElementById('audio');
+            const audioInfo = document.getElementById('audioInfo');
+
+            audioInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const size = (file.size / (1024 * 1024)).toFixed(2);
+                    audioInfo.textContent = `Selected file: ${file.name} (${size} MB)`;
+                } else {
+                    audioInfo.textContent = '';
+                }
+            });
         });
-    });
     </script>
 </body>
 </html> 
