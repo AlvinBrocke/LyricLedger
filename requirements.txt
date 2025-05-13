@@ -1,12 +1,8 @@
-fastapi
-torch
-librosa
-faiss-cpu
-numpy
 flask==3.0.2
 torch==2.2.1
 torchaudio==2.2.1
 librosa==0.10.1
 numpy==1.26.4
-werkzeug==3.0.1 
-
+werkzeug==3.0.1
+mysql-connector-python==8.3.0
+faiss-cpu==1.7.4 

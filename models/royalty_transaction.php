@@ -15,7 +15,7 @@ class RoyaltyTransaction {
             $this->db->beginTransaction();
 
             // Insert into MySQL database
-            $sql = "INSERT INTO royalty_transactions (id, content_id, user_id, amount, transaction_hash, blockchain_status, payment_method) VALUES (UUID(), :content_id, :user_id, :amount, :transaction_hash, :blockchain_status, :payment_method)";
+        $sql = "INSERT INTO royalty_transactions (id, content_id, user_id, amount, transaction_hash, blockchain_status, payment_method) VALUES (UUID(), :content_id, :user_id, :amount, :transaction_hash, :blockchain_status, :payment_method)";
             $result = $this->db->insert($sql, $data);
 
             if (!$result) {

@@ -44,14 +44,15 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
         <div class="upload-container">
             <form action="../actions/upload_music.php" method="POST" enctype="multipart/form-data" id="uploadForm" onsubmit="return validateForm()">
                 <?php if (isset($_SESSION['error'])): ?>
-                    <div class="error-message">
+                    <div class="error-message" id="error-message">
                         <?= htmlspecialchars($_SESSION['error']) ?>
                         <?php unset($_SESSION['error']); ?>
+
                     </div>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['success'])): ?>
-                    <div class="success-message">
+                    <div class="success-message" id="success-message">
                         <?= htmlspecialchars($_SESSION['success']) ?>
                         <?php unset($_SESSION['success']); ?>
                     </div>
@@ -112,27 +113,99 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
     </div>
 
     <script>
-    function validateForm() {
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        
+
+    async function handleUpload(event) {
+        event.preventDefault();
         const form = document.getElementById('uploadForm');
         const formData = new FormData(form);
+        const submitBtn = form.querySelector('.upload-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const progressBar = submitBtn.querySelector('.progress-bar');
         
-        // Log form data
-        console.log('Form data being submitted:');
-        for (let [key, value] of formData.entries()) {
-            if (key === 'audio' || key === 'cover') {
-                console.log(key + ': ' + value.name + ' (' + value.size + ' bytes)');
-            } else {
-                console.log(key + ': ' + value);
+        try {
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Processing...';
+            progressBar.style.display = 'block';
+
+            // First, send the audio file to the Flask API for fingerprinting
+            const audioFile = formData.get('audio');
+            const fingerprintData = new FormData();
+            fingerprintData.append('file', audioFile);
+            fingerprintData.append('track_id', crypto.randomUUID()); // Generate a unique track ID
+
+            console.log('Sending file:', audioFile);
+            const fingerprintResponse = await fetch('http://127.0.0.1:5000/fingerprint', {
+                method: 'POST',
+                body: fingerprintData
+            });
+
+            const fingerprintResult = await fingerprintResponse.json();
+
+            if (!fingerprintResponse.ok) {
+                throw new Error(fingerprintResult.error || 'Failed to process audio file');
             }
+
+            // Handle the fingerprint response
+            if (fingerprintResult.status === 'similar_tracks_found') {
+                // Show similar tracks warning
+                const similarTracksList = fingerprintResult.similar_tracks.map(track => 
+                    `Track ID: ${track.track_id} (Similarity: ${(track.similarity * 100).toFixed(2)}%)`
+                ).join('\n');
+
+                if (!confirm(`Similar tracks found in the database:\n${similarTracksList}\n\nDo you still want to upload this track?`)) {
+                    throw new Error('Upload cancelled by user');
+                }
+            }
+
+            // Add the fingerprint to the form data
+            formData.append('fingerprint', JSON.stringify(fingerprintResult));
+
+            // Now send the complete form data to upload_music.php
+            const uploadResponse = await fetch('../actions/upload_music.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const uploadResult = await uploadResponse.text();
+
+            if (!uploadResponse.ok) {
+                throw new Error('Failed to upload track');
+            }
+
+            // Show success message and redirect
+            document.getElementById('success-message').textContent = uploadResult;
+            setTimeout(() => {
+            errorMessage.textContent = '';
+            successMessage.textContent = '';
+        }, 5000);
+            // window.location.href = 'my-tracks.php';
+
+        } catch (error) {
+            console.error('Upload error:', error);
+            document.getElementById('error-message').textContent = error.message || 'An error occurred during upload';
+            setTimeout(() => {
+                errorMessage.innerText = '';
+                successMessage.innerHTML = '';
+            }, 5000);
+        } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            btnText.textContent = 'Upload Track';
+            progressBar.style.display = 'none';
         }
-        
-        return true;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('uploadForm');
+        form.addEventListener('submit', handleUpload);
+
         // Cover image preview
         const coverInput = document.getElementById('cover');
-        const coverPreview = document.getElementById('cover-preview');
+        const coverPreview = document.getElementById('coverPreview');
 
         coverInput.addEventListener('change', function() {
             const file = this.files[0];
@@ -147,16 +220,18 @@ $genres = $db->fetchAll("SELECT id, genre_name as name FROM display_genres ORDER
             }
         });
 
-        // Form submission with progress
-        const form = document.querySelector('.upload-form');
-        const progressBar = document.querySelector('.progress-bar-fill');
-        const progressText = document.querySelector('.progress-text');
-        const progressContainer = document.querySelector('.upload-progress');
+        // File info display
+        const audioInput = document.getElementById('audio');
+        const audioInfo = document.getElementById('audioInfo');
 
-        form.addEventListener('submit', function(e) {
-            const submitBtn = this.querySelector('.submit-btn');
-            submitBtn.disabled = true;
-            progressContainer.style.display = 'block';
+        audioInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / (1024 * 1024)).toFixed(2);
+                audioInfo.textContent = `Selected file: ${file.name} (${size} MB)`;
+            } else {
+                audioInfo.textContent = '';
+            }
         });
     });
     </script>

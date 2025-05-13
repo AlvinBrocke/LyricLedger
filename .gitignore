@@ -1,0 +1,8 @@
+/settings/db_cred.php
+/settings/db_class.php
+/settings/db_connection.php
+/uploads/
+/assets/
+/vendor/
+.env/
+ai_service/.env

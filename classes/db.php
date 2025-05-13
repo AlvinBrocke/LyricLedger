@@ -176,18 +176,6 @@ class DB {
         return $this->pdo->rollBack();
     }
 
-    public function beginTransaction() {
-        return $this->pdo->beginTransaction();
-    }
-
-    public function commit() {
-        return $this->pdo->commit();
-    }
-
-    public function rollback() {
-        return $this->pdo->rollBack();
-    }
-
     public function lastInsertId() {
         return $this->pdo->lastInsertId();
     }

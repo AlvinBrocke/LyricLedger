@@ -81,7 +81,7 @@ if (!$genreName) {
 $baseDir = __DIR__ . '/../';
 $uploadDir = $baseDir . 'uploads/';
 $audioDir = $uploadDir . 'audio/';
-$coverDir = $uploadDir . 'covers/';
+// $coverDir = $uploadDir . 'covers/';
 
 // Log directory paths
 error_log("Base directory: " . $baseDir);
@@ -118,19 +118,19 @@ if (!is_writable($audioDir)) {
     exit();
 }
 
-if (!file_exists($coverDir)) {
-    error_log("Cover directory does not exist: " . $coverDir);
-    $_SESSION['error'] = 'Cover directory does not exist. Please contact support.';
-    header('Location: ../views/upload.php');
-    exit();
-}
+// if (!file_exists($coverDir)) {
+//     error_log("Cover directory does not exist: " . $coverDir);
+//     $_SESSION['error'] = 'Cover directory does not exist. Please contact support.';
+//     header('Location: ../views/upload.php');
+//     exit();
+// }
 
-if (!is_writable($coverDir)) {
-    error_log("Cover directory is not writable: " . $coverDir);
-    $_SESSION['error'] = 'Cover directory is not writable. Please contact support.';
-    header('Location: ../views/upload.php');
-    exit();
-}
+// if (!is_writable($coverDir)) {
+//     error_log("Cover directory is not writable: " . $coverDir);
+//     $_SESSION['error'] = 'Cover directory is not writable. Please contact support.';
+//     header('Location: ../views/upload.php');
+//     exit();
+// }
 
 // Handle audio file
 $audioFile = $_FILES['audio'] ?? null;
