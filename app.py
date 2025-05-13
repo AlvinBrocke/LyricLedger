@@ -7,7 +7,7 @@ import os
 from werkzeug.utils import secure_filename
 import tempfile
 from torch import nn
-from fingerprint_manager import FingerprintManager
+from ai_service.fingerprint_manager import FingerprintManager
 
 app = Flask(__name__)
 

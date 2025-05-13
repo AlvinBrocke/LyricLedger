@@ -107,5 +107,11 @@ def preprocess_audio(waveform, sample_rate, target_rate=8000):
         waveform = torch.mean(waveform, dim=0, keepdim=True)  # convert to mono
     return waveform
 
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 if __name__ == '__main__':
     app.run(debug=True)

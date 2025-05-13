@@ -429,6 +429,15 @@ def get_fingerprint():
         if os.path.exists(temp_path):
             os.unlink(temp_path)
 
+<<<<<<< Updated upstream
+=======
+
+
+# @app.route('/royalties', methods=['GET'])
+# def get_royalties():
+#     return jsonify({'message': 'Royalties endpoint'})
+
+>>>>>>> Stashed changes
 # @app.route('/search', methods=['POST'])
 # def search_similar():
 #     if 'file' not in request.files:

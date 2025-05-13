@@ -194,16 +194,26 @@ if __name__ == "__main__":
     # Database configuration
     db_config = {
         'host': 'localhost',
+<<<<<<< Updated upstream
         'user': 'your_username',
         'password': 'your_password',
         'database': 'fingerprint_db'
+=======
+        'user': 'root',
+        'password': '',
+        'database': 'music_royalty_db'
+>>>>>>> Stashed changes
     }
     
     # Initialize manager
     manager = FingerprintManager(db_config)
     
     # Example fingerprint (64-dimensional vector)
+<<<<<<< Updated upstream
     example_fingerprint = [0.1] * 64
+=======
+    fingerprint = [0.1] * 64
+>>>>>>> Stashed changes
     
     # Add fingerprint
     manager.add_fingerprint("track_001", example_fingerprint)
