@@ -62,7 +62,7 @@
         <!-- Music Section -->
          
         <section class="music-section">
-            <h3>AfroBeats Songs</h3>
+            <h3>Songs</h3>
             <div class="music-grid">
                 <?php   foreach ($genreSongs as $songs) { 
                     echo '<div class="music-card">
